@@ -1,6 +1,6 @@
 # 📦 Media Processing & Intent Inference Pipeline
 
-This project demonstrates a modular pipeline that processes audio, image, and document inputs to extract structured JSON data, combining audio transcription, natural language understanding (NLU), document parsing, and speech synthesis in a unified interface.
+This project demonstrates a modular pipeline that processes audio, image, and document inputs to extract structured JSON data. It combines transcription, NLU (natural language understanding), OCR, and speech synthesis into a unified and flexible interface.
 
 ---
 
@@ -15,8 +15,8 @@ This project demonstrates a modular pipeline that processes audio, image, and do
 | ✅ Intent Detection              | Identifies one or more user intents using basic pattern matching     |
 | ✅ Speech Synthesis              | Responds with synthesized speech audio                              |
 | ✅ OCR & Field Extraction        | Parses documents and IDs for structured fields                       |
-| ⚠️ Tesseract Compatibility      | Installed but may still require absolute path on some systems       |
-| ⚠️ Structured Field Heuristics  | Limited accuracy on noisy/foreign document layouts                   |
+| ⚠️ Tesseract Compatibility      | Installed but may require absolute path configuration               |
+| ⚠️ Structured Field Heuristics  | Regex-based heuristics may not work with noisy layouts               |
 
 ---
 
@@ -71,22 +71,22 @@ Supported formats:
 python run_pipeline.py
 ```
 
+The system will process each file and output structured JSON to the `/outputs/` folder.
+
 ---
 
-## ✅ Working Functionality
+## ✅ What Works
 
-### 🧠 Audio Transcription + Intent Inference
+### 🧠 Audio Transcription + Intent Detection
+- Supports multi-intent extraction.
+- Returns transcription, intent(s), and key parameters.
 
-- Successfully extracts transcription from voice files.
-- Supports **multi-intent detection** and fallback intent recognition.
-
-### 🪪 OCR & Document Parsing
-
-The system extracts structured fields from image documents, including:
+### 🪪 Document Parsing (OCR)
+- Extracts from common formats like ID cards, passports, licenses, and bills.
 
 | Field             | Examples Extracted             |
 |------------------|---------------------------------|
-| `name`           | "Language Centre"               |
+| `name`           | "Language Centre", "Alexander Drive" |
 | `dob`            | "2/11/1976", "08/31/2014"        |
 | `phone`          | "940-297-5964", "800-799-4723"   |
 | `address`        | "4780 Alexander Drive"           |
@@ -97,39 +97,51 @@ The system extracts structured fields from image documents, including:
 
 ---
 
-## ⚠️ Limitations & Known Issues
+## ⚠️ Limitations & Notes
 
 | Area                       | Limitation                                                                 |
 |---------------------------|----------------------------------------------------------------------------|
-| 🖼️ Tesseract OCR           | Requires explicit path setup on Windows (`tesseract_cmd` workaround)       |
-| 📃 Field Extraction Heuristics | Relies on regex + keyword matching; may misclassify unstructured text    |
-| 🌐 Language Bias           | Intent classification currently assumes English inputs                    |
-| 🎭 Ambiguous Inputs        | Ambiguity handled by labeling multiple intents, but parameters may be partial |
-| 🧪 Document Noise          | Handwritten or low-res scans degrade OCR accuracy                          |
+| 🖼️ Tesseract OCR           | Requires absolute path on Windows                                          |
+| 🔍 Field Extraction Logic  | Uses regex patterns; performance may degrade on scanned/foreign-language docs |
+| 🎧 Whisper Transcription   | Requires `ffmpeg`; performance may vary with background noise              |
+| 🧪 Document Variance       | Some layout types (e.g., bills or medical cards) may be inconsistently parsed |
+| ❓ Ambiguity Handling       | When input implies multiple intents, both are captured as a list           |
 
 ---
 
-## 🛠️ Technologies Used
+## 🔄 How to Swap Modules
 
-- Python 3.10+
-- OpenAI Whisper (via `openai-whisper`)
-- `pytesseract` (OCR)
-- `gTTS` or `pyttsx3` (TTS)
-- Regex + keyword heuristics for intent & field extraction
+| Component     | Replace With                                   |
+|---------------|------------------------------------------------|
+| Transcriber   | Replace `transcribe/transcribe.py` with Google Speech, Vosk, etc. |
+| Interpreter   | Replace `interpret/interpret.py` with Rasa, spaCy, or LLM-based intent parser |
+| Synthesizer   | Modify `synthesize/speak.py` to use Amazon Polly, ElevenLabs, etc. |
+| OCR Engine    | Swap `pytesseract` with AWS Textract, EasyOCR, PaddleOCR |
 
----
-
-## 📌 Example Inputs
-
-See the `/inputs/` folder for:
-
-- `weather.wav`: "What’s the weather in Boston?"
-- `flight.mp3`: "Book a flight from New York to LA"
-- `license.jpg`: California driver license
-- `passporttest.jpg`: Canadian passport scan
+Each component follows a modular function-call structure and can be swapped with minimal interface changes.
 
 ---
 
-## 👥 Contributors
+## 🧠 Assumptions Made
 
-- Smarana Reddy – Project Lead
+- All images are assumed to be printed (not handwritten).
+- English is the expected language for both voice and documents.
+- Filenames are treated as unique IDs for linking input/output.
+- If fields conflict, most recently matched value is retained.
+- For audio: fallback intent is `unknown` if no match is found.
+
+---
+
+## 📌 Sample Inputs
+
+Examples included in the `/inputs/` directory:
+- `weather.wav` – Audio asking for weather
+- `flight.mp3` – Requesting flight booking
+- `utilitybill.png` – Scanned electricity bill
+- `passporttest.jpg` – Canadian passport image
+
+---
+
+## 👤 Author
+
+- Smarana Reddy – Full-stack Developer | [LinkedIn](https://www.linkedin.com/in/smarana/)
