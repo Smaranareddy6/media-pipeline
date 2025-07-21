@@ -1,0 +1,7 @@
+{
+    "transcription": "Good morning, just checking in to say hello and hope you are doing well today.",
+    "intents": [
+        "greet"
+    ],
+    "parameters": {}
+}

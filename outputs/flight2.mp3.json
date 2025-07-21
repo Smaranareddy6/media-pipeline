@@ -1,0 +1,9 @@
+{
+    "transcription": "I'm planning to fly from Seattle to New York, Kenya, asist from",
+    "intents": [
+        "unknown"
+    ],
+    "parameters": {
+        "location": "Seattle"
+    }
+}

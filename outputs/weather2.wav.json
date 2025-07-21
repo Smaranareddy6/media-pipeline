@@ -1,0 +1,9 @@
+{
+    "transcription": "Is it hot right now in New York or should I take a jacket?",
+    "intents": [
+        "get_weather"
+    ],
+    "parameters": {
+        "location": "New York"
+    }
+}

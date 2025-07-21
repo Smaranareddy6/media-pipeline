@@ -1,0 +1,9 @@
+{
+    "transcription": "I want to book a flight from Dallas to Chicago next Friday morning.",
+    "intents": [
+        "book_flight"
+    ],
+    "parameters": {
+        "location": "Dallas"
+    }
+}

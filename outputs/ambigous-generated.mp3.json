@@ -1,0 +1,10 @@
+{
+    "transcription": "Tell me the weather in Paris, and also what time it is there right now.",
+    "intents": [
+        "get_weather",
+        "get_time"
+    ],
+    "parameters": {
+        "location": "Paris"
+    }
+}

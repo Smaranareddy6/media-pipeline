@@ -1,0 +1,9 @@
+{
+    "transcription": "I was wondering if you could tell me the current time in London right now.",
+    "intents": [
+        "get_time"
+    ],
+    "parameters": {
+        "location": "London"
+    }
+}

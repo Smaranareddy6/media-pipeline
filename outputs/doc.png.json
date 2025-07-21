@@ -1,0 +1,9 @@
+{
+    "extracted_text": "\\\n\nIvan C Fender\n\nGender: male\n\nRace: Hispanic\n\nBirthday: 2/11/1976 (49 years old)\n\nStreet: 4780 Alexander Drive\n\nCity, State, Zip: Denton, Texas(TX), 76201\nTelephone: 940-297-5964\n\nMobile: 940-253-3808",
+    "structured_fields": {
+        "name": "Alexander Drive",
+        "dob": "2/11/1976",
+        "phone": "940-297-5964",
+        "address": "4780 Alexander Drive"
+    }
+}

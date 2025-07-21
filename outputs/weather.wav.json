@@ -1,0 +1,10 @@
+{
+    "transcription": "Hi, can you please tell me what the weather is like in New York today and if I should carry a number?",
+    "intents": [
+        "get_weather",
+        "greet"
+    ],
+    "parameters": {
+        "location": "New York"
+    }
+}

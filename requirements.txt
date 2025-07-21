@@ -1,0 +1,4 @@
+openai-whisper
+pytesseract
+gTTS
+pillow
